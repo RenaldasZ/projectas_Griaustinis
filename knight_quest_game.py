@@ -15,7 +15,11 @@ def start_game():
         session.add(player)
         session.commit()
         print(f"\nWelcome to Knight Quest, {player.name}!")
-        print("Your adventure begins now.\n")
+        print("""
+        Once upon a time, in a distant kingdom, a courageous knight named Griaustinis received a distressing message. 
+        The beautiful princess, Lady Arabella, had been captured by a fearsome dragon and imprisoned in its lair atop a mountain.
+        Your quest is to find the dragon and save the princess.\n
+        """)
         return player
     except IntegrityError:
         session.rollback()
