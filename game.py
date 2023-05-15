@@ -1,3 +1,5 @@
+
+
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
@@ -60,24 +62,26 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 # Creating a Player instance
-knight = Player("Griaustinis")
+character = Player("Griaustinis")
+
 
 # # Adding the player to the session
-session.add(knight)
+session.add(character)
 session.commit()
 
-print("Player Name:", knight.name)
-print("Player Health:", knight.health)
-print("Player Level:", knight.level)
+print("\nCharacter statistics:")
+print("-- character Name:", character.name)
+print("-- character Health:", character.health)
+print("-- character Level:", character.level, "\n")
 
-knight.add_to_inventory("Wooden Sword")
-knight.add_to_inventory("Wooden Shield")
-knight.add_to_inventory("Lether Armor")
-
-knight.display_inventory()
-
+character.add_to_inventory("Wooden Sword")
+character.add_to_inventory("Wooden Shield")
+character.add_to_inventory("Lether Armor")
 # Committing the changes to the database
 session.commit()
+
+print("Inventory:")
+print(character.display_inventory())
 
 # Close the session
 session.close()
