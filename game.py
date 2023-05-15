@@ -72,11 +72,8 @@ print("Player Level:", knight.level)
 
 knight.add_to_inventory("Wooden Sword")
 knight.add_to_inventory("Wooden Shield")
-knight.add_to_inventory("Lether Helm")
-knight.add_to_inventory("Lether body")
-knight.add_to_inventory("Lether legs")
-knight.add_to_inventory("Lether gloves")
-knight.add_to_inventory("Lether boots")
+knight.add_to_inventory("Lether Armor")
+
 knight.display_inventory()
 
 # Committing the changes to the database
