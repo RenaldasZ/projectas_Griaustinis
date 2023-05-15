@@ -11,11 +11,13 @@ class Player(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     health = Column(Integer)
+    level = Column(Integer)
     inventory = relationship("InventoryItem", back_populates="player")
 
     def __init__(self, name):
         self.name = name
         self.health = 100
+        self.level = 1
 
     def take_damage(self, damage):
         self.health -= damage
@@ -66,13 +68,15 @@ session.commit()
 
 print("Player Name:", knight.name)
 print("Player Health:", knight.health)
+print("Player Level:", knight.level)
 
-knight.add_to_inventory("Sword")
-knight.add_to_inventory("Shield")
-knight.add_to_inventory("Plate body")
-knight.add_to_inventory("Plate legs")
-knight.add_to_inventory("Plate gloves")
-knight.add_to_inventory("Plate boots")
+knight.add_to_inventory("Wooden Sword")
+knight.add_to_inventory("Wooden Shield")
+knight.add_to_inventory("Lether Helm")
+knight.add_to_inventory("Lether body")
+knight.add_to_inventory("Lether legs")
+knight.add_to_inventory("Lether gloves")
+knight.add_to_inventory("Lether boots")
 knight.display_inventory()
 
 # Committing the changes to the database
