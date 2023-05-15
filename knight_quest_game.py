@@ -7,10 +7,10 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 def start_game():
-    print("\nTo play the game enter your name !\n")
+    print("\nTo play the game, enter your name!\n")
     player_name = input("Enter your knight's name: ")
     player = Player(player_name)
-    
+
     try:
         session.add(player)
         session.commit()
@@ -29,12 +29,12 @@ def start_game():
 def game_loop(player):
     while True:
         print("What would you like to do?")
-        print("1. Explore and hunt monster")
+        print("1. Explore and hunt monsters")
         print("2. View Inventory")
         print("3. Quit")
-        
+
         choice = input("Enter your choice (1-3): ")
-        
+
         if choice == "1":
             explore(player)
         elif choice == "2":
@@ -48,6 +48,22 @@ def game_loop(player):
 def explore(player):
     print(f"\n{player.name} is exploring...\n")
     # Implement your exploration logic here
+    print("""
+    He entered the dark forest surrounding the mountain, 
+        cautiously navigating through its dense vegetation. As he ventured deeper, he encountered a fork in the path.
+    """)
+    print(f"""
+    {player.name} chose to take the path on the right, leading him to a hidden cave. Inside the cave, he found a SWORD !!!!!
+    """)
+    print("""
+    What would you like to do next?
+    """)
+    player.add_to_inventory("Sword")
+    session.commit()
+    inventory = player.display_inventory()
+    print(inventory)
+
+
 
 def view_inventory(player):
     print(f"{player.name}'s Inventory:")
@@ -60,3 +76,4 @@ if player:
 
 # Close the session
 session.close()
+
