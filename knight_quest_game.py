@@ -1,3 +1,5 @@
+
+
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import IntegrityError
 from game import Player, engine
@@ -47,22 +49,27 @@ def game_loop(player):
 
 def explore(player):
     print(f"\n{player.name} is exploring...\n")
+
     # Implement your exploration logic here
-    print("""
-    He entered the dark forest surrounding the mountain, 
+
+    print(f"""
+    {player.name} entered the dark forest surrounding the mountain, 
         cautiously navigating through its dense vegetation. As he ventured deeper, he encountered a fork in the path.
     """)
+
     print(f"""
     {player.name} chose to take the path on the right, leading him to a hidden cave. Inside the cave, he found a SWORD !!!!!
     """)
+
     print("""
     What would you like to do next?
     """)
+
+
     player.add_to_inventory("Sword")
     session.commit()
     inventory = player.display_inventory()
     print(inventory)
-
 
 
 def view_inventory(player):
