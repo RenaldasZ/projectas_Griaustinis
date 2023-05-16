@@ -14,7 +14,7 @@ session.add_all([item1, item2, item3])
 session.commit()
 
 # Create a player named 'Thunder'
-thunder = Player(name='Thunder', health=100, level=1)
+thunder = Player(name='Thunder', health=100, level=1, power=100)
 session.add(thunder)
 session.commit()
 
@@ -31,3 +31,4 @@ enemy2 = Enemy(name='Orc', health=80)
 
 session.add_all([enemy1, enemy2])
 session.commit()
+session.close()
