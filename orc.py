@@ -24,14 +24,14 @@ while player_health > 0 and enemy_health > 0:
     # Player's turn
     enemy_health -= player_power
     if enemy_health <= 0:
-        print("You defeated the Rat!")
+        print("You defeated the Orc!")
         break
     print("Enemy's health:", enemy_health)
     
     # Enemy's turn
     player_health -= enemy_power
     if player_health <= 0:
-        print("Game over. You were defeated by Rat.")
+        print("Game over. You were defeated by Orc.")
         break
     print("Your health:", player_health)
     
