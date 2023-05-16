@@ -1,8 +1,8 @@
+
 from game_config import Player, Enemy, engine
 from sqlalchemy.orm import sessionmaker
 
-
-# # Create a session
+# Create a session
 Session = sessionmaker(bind=engine)
 session = Session()
 
@@ -37,6 +37,8 @@ while player_health > 0 and enemy_health > 0:
     
     # Update player's health in the database
     player.health = player_health
+    player.hit_score(3)
+    player.money(2)
     session.commit()
     
     # Wait for player input before next round
@@ -44,3 +46,5 @@ while player_health > 0 and enemy_health > 0:
 
 # Close the session
 session.close()
+
+
