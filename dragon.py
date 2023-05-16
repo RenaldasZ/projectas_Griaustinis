@@ -10,7 +10,7 @@ session = Session()
 player = session.query(Player).filter_by(name='Thunder Girl').first()
 
 # Retrieve the enemy from the database
-enemy = session.query(Enemy).filter_by(id=3).first()
+enemy = session.query(Enemy).filter_by(id=4).first()
 
 # Game initialization
 player_health = player.health
@@ -24,21 +24,21 @@ while player_health > 0 and enemy_health > 0:
     # Player's turn
     enemy_health -= player_power
     if enemy_health <= 0:
-        print("You defeated the Orc!")
+        print("You defeated the Dragon!")
         break
     print("Enemy's health:", enemy_health)
     
     # Enemy's turn
     player_health -= enemy_power
     if player_health <= 0:
-        print("Game over. You were defeated by Orc.")
+        print("Game over. You were defeated by Dragon.")
         break
     print("Your health:", player_health)
     
     # Update player's health in the database
     player.health = player_health
-    player.hit_score(4)
-    player.money(3)
+    player.hit_score(5)
+    player.money(4)
     session.commit()
     
     # Wait for player input before next round
