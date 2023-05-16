@@ -9,7 +9,6 @@ layout2 = [[sg.Button("Left",size=(16,0), key="Left"), sg.Button("Right",size=(1
 ]
 layout = [
     [sg.Column(layout1, key='-COL1-')],
-    [sg.VSeperator()],
     [sg.Column(layout2, key='-COL2-', visible=False)]
 ]
 
