@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from random import randint
-from test import Player, Enemy
+from game_config import Player, Enemy
 
 # Create the database engine
 engine = create_engine('sqlite:///thunder.db')
