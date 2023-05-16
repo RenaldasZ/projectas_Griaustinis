@@ -13,9 +13,9 @@ session = Session()
 # session.add_all([item1, item2, item3])
 # session.commit()
 
-# Create a player named 'Thunder'
-thunder = Player(name='Thunder', health=100, level=1, power=100)
-session.add(thunder)
+# # Create a player named 'Thunder Girl'
+player = Player(name='Thunder Girl', health=100, level=1, power=10)
+session.add(player)
 session.commit()
 
 # # Add related items to Thunder's inventory
@@ -25,10 +25,14 @@ session.commit()
 # session.add_all([inventory_item1, inventory_item2])
 # session.commit()
 
-# Add enemies to the Enemy table
-# enemy1 = Enemy(name='Goblin', health=50)
-# enemy2 = Enemy(name='Orc', health=80)
+# # Add enemies to the Enemy table
+enemy = Enemy(name='Rat', health=50, power=5)
+session.add_all([enemy])
+session.commit()
 
-# session.add_all([enemy1, enemy2])
-# session.commit()
+# # Add enemies to the Enemy table
+enemy = Enemy(name='Goblin', health=70, power=7)
+session.add_all([enemy])
+session.commit()
+
 session.close()
