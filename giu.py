@@ -1,11 +1,14 @@
 import PySimpleGUI as sg
 
-layout1 = [[sg.Image("small_warrior.png"), sg.Text("ilga istorija")],
-          [sg.Text("health"), sg.Text("power"), sg.Text("level"), sg.Button("Start",size=(20,3), key="-new game-")]
-        
+sg.theme('Dark2')
+
+layout1 = [[sg.Image("small_warrior.png"), sg.Text("Once upon a time, in a distant kingdom, a courageous knight named\n 'Griaustinis' received a distressing message. The beautiful princess, Lady Arabella, had been\n captured by a fearsome dragon and imprisoned in its lair atop a mountain.Your quest is to find the dragon\n and save the princess.", font=("Edwardian Script ITC", 21))],
+          [sg.Text("Thunder", key="-thunder-", size=(20, 0), font=("Algerian", 25))],
+          [sg.Text("health"), sg.Text("power"), sg.Text("level"), sg.Button("Start",size=(16,0),border_width=(10), key="-new game-")],       
 ]
+
 layout2 = [[sg.Button("Left",size=(16,0), key="Left"), sg.Button("Right",size=(16,0), key="Right"), sg.Button("Foward",size=(16,0), key="Foward"),sg.Button("Back",size=(16,0), key="Back")],
-          [sg.Output(s=(30, 10), key="-output-")]
+          [sg.Output(s=(30, 10), key="-output-"), sg.Button("Attack!!!",size=(16,0), button_color=('white', 'firebrick4'),border_width=(10), key="Atack"), sg.Button("Flee",size=(16,0), key="Flee")]
 ]
 layout = [
     [sg.Column(layout1, key='-COL1-')],
@@ -22,3 +25,4 @@ while True:
         break
 
 window.close()
+
