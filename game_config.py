@@ -1,5 +1,3 @@
-
-
 from sqlalchemy import Column, Integer, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -15,16 +13,19 @@ class Player(Base):
     gold = Column(Integer, nullable=False)
     score = Column(Integer, nullable=False)
 
-    # def take_damage(self, damage):
-    #     self.health -= damage
-
-    def heal(self, amount):
-        self.health += amount
 
     def hit_score(self, amount):
         self.score += amount
         if self.score % 10 == 0:
             self.lvl_up()
+            self.heal()
+            self.strenght()
+
+    def heal(self):
+        self.health += 50
+
+    def strenght(self):
+        self.power += 2
 
     def lvl_up(self):
         self.level += 1

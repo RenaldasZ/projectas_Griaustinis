@@ -37,7 +37,6 @@ while player_health > 0 and enemy_health > 0:
     
     # Update player's health in the database
     player.health = player_health
-    player.heal(5)
     player.hit_score(2)
     player.money(1)
     session.commit()
