@@ -1,10 +1,7 @@
-from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from random import randint
-from game_config import Player, Enemy
+from game_config import Player, Enemy, engine
 
-# Create the database engine
-engine = create_engine('sqlite:///thunder.db')
 Session = sessionmaker(bind=engine)
 session = Session()
 
@@ -17,10 +14,10 @@ print("Enemy: Orc | Power: {}".format(enemy.id))
 
 while player.health > 0 and enemy.id > 0:
     # Player attacks the enemy
-    enemy.id -= randint(1, 10)
-    if enemy.id < 0:
+    enemy.health -= randint(1, 10)
+    if enemy.health < 0:
         enemy.Orc = 0
-    print("Player attacks the enemy! Enemy Orc Power: {}".format(enemy.Orc))
+    print("Player attacks the enemy! Enemy Orc Power: {}".format(enemy.health))
 
     # Enemy attacks the player
     player.health -= randint(1, 10)
