@@ -12,13 +12,25 @@ class Player(Base):
     health = Column(Integer, nullable=False)
     level = Column(Integer, nullable=False)
     power = Column(Integer, nullable=False)
-
+    gold = Column(Integer, nullable=False)
+    score = Column(Integer, nullable=False)
 
     # def take_damage(self, damage):
     #     self.health -= damage
 
-    # def heal(self, amount):
-    #     self.health += amount
+    def heal(self, amount):
+        self.health += amount
+
+    def hit_score(self, amount):
+        self.score += amount
+        if self.score % 10 == 0:
+            self.lvl_up()
+
+    def lvl_up(self):
+        self.level += 1
+
+    def money(self, amount):
+        self.gold += amount
 
 class Enemy(Base):
     __tablename__ = 'Enemy'
