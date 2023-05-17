@@ -17,7 +17,7 @@ pygame.mixer.init()
 pygame.mixer.music.load("background_music.mp3")
 
 # Play the background music on loop
-# pygame.mixer.music.play(loops=-1)
+pygame.mixer.music.play(loops=-1)
 
 # Set the initial volume (range: 0.0 to 1.0)
 initial_volume = 0.1
