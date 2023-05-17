@@ -21,8 +21,8 @@ class Player(Base):
             self.heal()
             self.strenght()
 
-    def heal(self):
-        self.health += 50
+    def heal(self, health=50):
+        self.health += health
 
     def strenght(self):
         self.power += 2
