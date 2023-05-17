@@ -57,13 +57,13 @@ def attack(player:Player, enemy:Enemy, session=session):
         # Player's turn
         enemy.health -= player.power
         if enemy.health <= 0:
-            print("You defeated the Rat!")
+            print("You defeated the Enemy! Please choose another location")
             break
         print("Enemy's health:", enemy.health)         
         # Enemy's turn
         player.health -= enemy.power
         if player.health <= 0:
-            print("Game over. You were defeated by Rat.")
+            print("Game over. You were defeated by Enemy.")
             break
         print("Your health:", player.health)          
         player.hit_score(2)
@@ -80,10 +80,10 @@ enemy_location = {
 }
 
 location_messages = {
-    "Swamp": "Atvykote į pelkę ir sutikote Žiurkių Baroną. Pasirinkite savo taktiką", 
-    "Cave": "Atvykote į olą ir sutikote Gobiliną. Pasirinkite savo taktiką",
-    "Forest": "Atvykote į mišką ir sutikote Ork'ą. Pasirinkite savo taktiką",
-    "Mountain": "Atvykote į kalną ir sutikote Drakoną. Pasirinkite savo taktiką",
+    "Swamp": "You have arrived at the swamp and encountered the Rat Baron. Choose your strategy: Attack or Flee", 
+    "Cave": "You have arrived at the cave and encountered the Goblin. Choose your strategy: Attack or Flee",
+    "Forest": "You have arrived at the forest and encountered the Orc. Choose your strategy: Attack or Flee",
+    "Mountain": "You have arrived at the mountain and encountered the Dragon.Choose your strategy: Attack or Flee",
 }
 
 enemy_pics = {
@@ -104,7 +104,7 @@ while True:
 
     if event == "-new game-":
         window["-COL2-"].update(visible=True)
-        print("Sveiki atvykę")
+        print("Welcome to your village, where your journey begins. Please choose where you would like to continue your journey.")
         
     if event == sg.WINDOW_CLOSED or event == "Close":
         break
@@ -123,7 +123,7 @@ while True:
             window["-gold-"].update(f"Gold\n{player.gold}")
             window["-score-"].update(f"Score\n{player.score}")
         else:
-            print("Čia priešų nėra, pasirinkite vietą")
+            print("There are no enemies here. Please choose a location.")
 
     if event == "Village":
         rat.health = 50
