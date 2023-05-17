@@ -11,12 +11,12 @@ session.add(player)
 session.commit()
 
 # Add enemies to the Enemy table
-enemy = Enemy(name='Rat', health=50, power=5)
+enemy = Enemy(name='Rat', health=50, power=10)
 session.add_all([enemy])
 session.commit()
 
 # Add enemies to the Enemy table
-enemy = Enemy(name='Goblin', health=70, power=7)
+enemy = Enemy(name='Goblin', health=110, power=12)
 session.add_all([enemy])
 session.commit()
 
