@@ -1,5 +1,3 @@
-
-
 import pygame
 import PySimpleGUI as sg
 from game_config import Player, Enemy, engine
@@ -23,9 +21,7 @@ pygame.mixer.music.play(loops=-1)
 initial_volume = 0.1
 pygame.mixer.music.set_volume(initial_volume)
 
-
-
-    # Retrieve the player and enemy from the database
+# Retrieve the player and enemy from the database
 player = session.query(Player).filter_by(name='Thunder Girl').first()
 rat = session.get(Enemy, 1)
 goblin = session.get(Enemy, 2)
@@ -33,9 +29,9 @@ ork = session.get(Enemy, 3)
 dragon = session.get(Enemy, 4)
 
 sg.theme('Dark2')
-default_pic = "small_village.png"
+default_pic = "images/small_village.png"
 layout1 = [
-    [sg.Image("small_warrior.png"), 
+    [sg.Image("images/small_warrior.png"), 
      sg.Text("""Once upon a time, in a distant kingdom, a courageous Warrior
     named 'Thunder girl aka Griaustinis' received a distressing message. 
     The beautiful prince, R. Cicinas, had been captured by a fearsome dragon
@@ -54,7 +50,7 @@ layout = [
     [sg.Column(layout2, key='-COL2-', visible=False)]
 ]
 
-window = sg.Window("Griaustinis", layout, size=(1050, 520))
+window = sg.Window("Griaustinis", layout, size=(1050, 820), element_justification="center")
 
 def attack(player:Player, enemy:Enemy, session=session):
     while player.health > 0 and enemy.health > 0:
@@ -74,7 +70,6 @@ def attack(player:Player, enemy:Enemy, session=session):
         player.money(1)
         session.commit()
     return player
-
         
 location = None
 enemy_location = {
@@ -83,6 +78,7 @@ enemy_location = {
     "Forest": ork,
     "Mountain": dragon,
 }
+
 location_messages = {
     "Swamp": "Atvykote į pelkę ir sutikote Žiurkių Baroną. Pasirinkite savo taktiką", 
     "Cave": "Atvykote į olą ir sutikote Gobiliną. Pasirinkite savo taktiką",
@@ -91,11 +87,12 @@ location_messages = {
 }
 
 enemy_pics = {
-    "Swamp": "small_rat.png", 
-    "Cave": "small_goblin.png",
-    "Forest": "small_orc.png",
-    "Mountain": "small_dragon.png",
+    "Swamp": "images/small_rat.png", 
+    "Cave": "images/small_goblin.png",
+    "Forest": "images/small_orc.png",
+    "Mountain": "images/small_dragon.png",
 }
+
 player.health = 100
 rat.health = 50
 goblin.health = 70
@@ -104,16 +101,19 @@ dragon.health = 200
 
 while True:
     event, values = window.read()
+
     if event == "-new game-":
         window["-COL2-"].update(visible=True)
         print("Sveiki atvykę")
         
     if event == sg.WINDOW_CLOSED or event == "Close":
         break
+
     if event in enemy_location.keys():
         location = event
         print(location_messages[location])
         window["-location-"].update(filename=enemy_pics[location])
+
     if event == "Attack":
         if location:
             player = attack(player, enemy_location[location])
@@ -124,22 +124,16 @@ while True:
             window["-score-"].update(f"Score\n{player.score}")
         else:
             print("Čia priešų nėra, pasirinkite vietą")
+
     if event == "Village":
         rat.health = 50
         goblin.health = 70
         ork.health = 90
         dragon.health = 200
-        window["-location-"].update(filename="small_village.png")
+        window["-location-"].update(filename="images/small_village.png")
+
     if event == sg.WINDOW_CLOSED or event == "Quit":
         break
-    elif event == "Start Game":
-        # Start the game logic here
-        pass
-    elif event == "-VOLUME-":
-        volume = values
-
-        # Set the background music volume
-        pygame.mixer.music.set_volume(volume)
 
 window.close()
  # Stop the background music when the game ends
