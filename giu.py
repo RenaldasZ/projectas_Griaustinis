@@ -1,3 +1,5 @@
+
+
 import pygame
 import PySimpleGUI as sg
 from game_config import Player, Enemy, engine
@@ -39,8 +41,9 @@ layout1 = [
     The beautiful prince, R. Cicinas, had been captured by a fearsome dragon
     and imprisoned in its lair atop a mountain.
     Your quest is to find the dragon and save the prince.""", font=("Gabriola", 18), justification="center")],
-    [sg.Text("Thunder Girl", key="-thunder-", size=(20, 0), font=("Segoe Print", 16))],
-    [sg.Text(f"Level\n{player.level}"), sg.Text(f"Health\n{player.health}"), sg.Text(f"Power\n{player.power}"), sg.Text(f"Gold\n{player.gold}"), sg.Text(f"Score\n{player.score}"), sg.Button("Start",size=(16,0),border_width=(5), key="-new game-")]
+    [sg.Text("Thunder Girl", size=(20, 0), font=("Segoe Print", 16))],
+    [sg.Text("Level", key="-level-"), sg.Text(f"Health", key="-health-"), sg.Text(f"Power", key="-power-"), sg.Text(f"Gold", key="-gold-"), sg.Text(f"Score", key="-score-"),
+     sg.Button("Start",size=(16,0),border_width=(5), key="-new game-")]
 ]
 
 layout2 = [[sg.Button("Swamp",size=(16,0), key="Swamp"), sg.Button("Cave",size=(16,0), key="Cave"), sg.Button("Forest",size=(16,0), key="Forest"), sg.Button("Mountain",size=(16,0), key="Mountain"),sg.Button("Village",size=(16,0), key="Village")],
@@ -114,6 +117,11 @@ while True:
     if event == "Attack":
         if location:
             player = attack(player, enemy_location[location])
+            window["-level-"].update(f"Level\n{player.level}")
+            window["-health-"].update(f"Health\n{player.health}")
+            window["-power-"].update(f"Power\n{player.power}")
+            window["-gold-"].update(f"Gold\n{player.gold}")
+            window["-score-"].update(f"Score\n{player.score}")
         else:
             print("Čia priešų nėra, pasirinkite vietą")
     if event == "Village":
