@@ -72,8 +72,8 @@ def attack(player:Player, enemy:Enemy, session=session):
                 print("Game over. You were defeated by Enemy.")
             else:
                 print("Your health:", player.health) 
-                print("Enemy's health:", enemy.health)         
-                player.hit_score(2)
+                print("Enemy's health:", enemy.health) 
+                player.hit_score(1)        
         session.commit()
     return player
         
