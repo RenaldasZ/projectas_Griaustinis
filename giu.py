@@ -1,10 +1,21 @@
+import pygame
 import PySimpleGUI as sg
 from game_config import Player, Enemy, engine
 from sqlalchemy.orm import sessionmaker
 
-    # Create a session
+# Create a session
 Session = sessionmaker(bind=engine)
 session = Session()
+
+# Initialize pygame and mixer
+pygame.init()
+pygame.mixer.init()
+
+# Load the background music
+pygame.mixer.music.load("background_music.mp3")
+
+# Play the background music on loop
+pygame.mixer.music.play(loops=-1)
 
     # Retrieve the player and enemy from the database
 player = session.query(Player).filter_by(name='Thunder Girl').first()
@@ -54,6 +65,7 @@ def attack(player:Player, enemy:Enemy, session=session):
         player.money(1)
         session.commit()
     return player
+
         
 location = None
 enemy_location = {
@@ -95,6 +107,18 @@ while True:
         goblin.health = 70
         ork.health = 90
         dragon.health = 200
+        
+    if event == sg.WINDOW_CLOSED or event == "Quit":
+        break
+    elif event == "Start Game":
+        # Start the game logic here
+        pass
 
 window.close()
+ # Stop the background music when the game ends
+pygame.mixer.music.stop()
+
+# Quit pygame
+pygame.quit()
+
 
