@@ -19,6 +19,12 @@ pygame.mixer.music.load("background_music.mp3")
 # Play the background music on loop
 # pygame.mixer.music.play(loops=-1)
 
+# Set the initial volume (range: 0.0 to 1.0)
+initial_volume = 0.1
+pygame.mixer.music.set_volume(initial_volume)
+
+
+
     # Retrieve the player and enemy from the database
 player = session.query(Player).filter_by(name='Thunder Girl').first()
 rat = session.get(Enemy, 1)
@@ -48,7 +54,7 @@ layout = [
     [sg.Column(layout2, key='-COL2-', visible=False)]
 ]
 
-window = sg.Window("Griaustinis", layout, size=(1050, 820))
+window = sg.Window("Griaustinis", layout, size=(1050, 520))
 
 def attack(player:Player, enemy:Enemy, session=session):
     while player.health > 0 and enemy.health > 0:
@@ -129,6 +135,11 @@ while True:
     elif event == "Start Game":
         # Start the game logic here
         pass
+    elif event == "-VOLUME-":
+        volume = values
+
+        # Set the background music volume
+        pygame.mixer.music.set_volume(volume)
 
 window.close()
  # Stop the background music when the game ends
