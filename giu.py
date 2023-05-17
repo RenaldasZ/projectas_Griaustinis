@@ -63,8 +63,7 @@ def attack(player:Player, enemy:Enemy, session=session):
         # Player's turn
         enemy.health -= player.power
         if enemy.health <= 0:
-            player.money(enemy.power // 10)
-            # player.money(20) <-- gold reward after enemy die
+            player.money(enemy.power) # gold reward after kill = enemy power
             print("You defeated the Enemy! Please choose another location")                
         else:
             # Enemy's turn
@@ -75,7 +74,6 @@ def attack(player:Player, enemy:Enemy, session=session):
                 print("Your health:", player.health) 
                 print("Enemy's health:", enemy.health)         
                 player.hit_score(2)
-                # player.money(2) <-- gold reward after every hit
         session.commit()
     return player
         
