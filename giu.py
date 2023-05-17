@@ -29,9 +29,9 @@ ork = session.get(Enemy, 3)
 dragon = session.get(Enemy, 4)
 
 sg.theme('Dark2')
-default_pic = "small_village.png"
+default_pic = "images/small_village.png"
 layout1 = [
-    [sg.Image("small_warrior.png"), 
+    [sg.Image("images/small_warrior.png"), 
      sg.Text("""Once upon a time, in a distant kingdom, a courageous Warrior
     named 'Thunder girl aka Griaustinis' received a distressing message. 
     The beautiful prince, R. Cicinas, had been captured by a fearsome dragon
@@ -50,7 +50,7 @@ layout = [
     [sg.Column(layout2, key='-COL2-', visible=False)]
 ]
 
-window = sg.Window("Griaustinis", layout, size=(1050, 820))
+window = sg.Window("Griaustinis", layout, size=(1050, 820), element_justification="center")
 
 def attack(player:Player, enemy:Enemy, session=session):
     while player.health > 0 and enemy.health > 0:
@@ -87,10 +87,10 @@ location_messages = {
 }
 
 enemy_pics = {
-    "Swamp": "small_rat.png", 
-    "Cave": "small_goblin.png",
-    "Forest": "small_orc.png",
-    "Mountain": "small_dragon.png",
+    "Swamp": "images/small_rat.png", 
+    "Cave": "images/small_goblin.png",
+    "Forest": "images/small_orc.png",
+    "Mountain": "images/small_dragon.png",
 }
 
 player.health = 100
@@ -130,7 +130,7 @@ while True:
         goblin.health = 70
         ork.health = 90
         dragon.health = 200
-        window["-location-"].update(filename="small_village.png")
+        window["-location-"].update(filename="images/small_village.png")
 
     if event == sg.WINDOW_CLOSED or event == "Quit":
         break
