@@ -25,7 +25,7 @@ ork = session.get(Enemy, 3)
 dragon = session.get(Enemy, 4)
 
 sg.theme('Dark2')
-
+default_pic = "small_village.png"
 layout1 = [
     [sg.Image("small_warrior.png"), 
      sg.Text("""Once upon a time, in a distant kingdom, a courageous Warrior
@@ -38,7 +38,7 @@ layout1 = [
 ]
 
 layout2 = [[sg.Button("Swamp",size=(16,0), key="Swamp"), sg.Button("Cave",size=(16,0), key="Cave"), sg.Button("Forest",size=(16,0), key="Forest"), sg.Button("Mountain",size=(16,0), key="Mountain"),sg.Button("Village",size=(16,0), key="Village")],
-          [sg.Output(s=(30, 10), key="-output-"), sg.Button("Attack!!!",size=(16,0), button_color=('white', 'firebrick4'),border_width=(5), key="Attack"), sg.Button("Flee",size=(16,0), key="Flee")]
+          [sg.Output(s=(30, 10), key="-output-"), sg.Button("Attack!!!",size=(16,0), button_color=('white', 'firebrick4'),border_width=(5), key="Attack"), sg.Button("Flee",size=(16,0), key="Flee"),sg.Image(default_pic, key="-location-")]
 ]
 layout = [
     [sg.Column(layout1, key='-COL1-')],
@@ -80,6 +80,13 @@ location_messages = {
     "Forest": "Atvykote į mišką ir sutikote Ork'ą. Pasirinkite savo taktiką",
     "Mountain": "Atvykote į kalną ir sutikote Drakoną. Pasirinkite savo taktiką",
 }
+
+enemy_pics = {
+    "Swamp": "small_rat.png", 
+    "Cave": "small_goblin.png",
+    "Forest": "small_orc.png",
+    "Mountain": "small_dragon.png",
+}
 player.health = 100
 rat.health = 50
 goblin.health = 70
@@ -97,6 +104,7 @@ while True:
     if event in enemy_location.keys():
         location = event
         print(location_messages[location])
+        window["-location-"].update(filename=enemy_pics[location])
     if event == "Attack":
         if location:
             player = attack(player, enemy_location[location])
