@@ -20,7 +20,7 @@ pygame.mixer.music.play(loops=-1)
 sound_effect = pygame.mixer.Sound("attack.mp3")
 sound_effect1 = pygame.mixer.Sound("dragon.mp3")
 sound_effect2 = pygame.mixer.Sound("start.mp3")
-sound_effect3 = pygame.mixer.Sound("flee.mp3")
+
 
 # Set the initial volume (range: 0.0 to 1.0)
 initial_volume = 0.1
