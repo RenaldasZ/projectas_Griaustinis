@@ -64,6 +64,7 @@ def attack(player:Player, enemy:Enemy, session=session):
         enemy.health -= player.power
         if enemy.health <= 0:
             player.money(enemy.power // 10)
+            # player.money(20) <-- gold reward after enemy die
             print("You defeated the Enemy! Please choose another location")                
         else:
             # Enemy's turn
@@ -74,6 +75,7 @@ def attack(player:Player, enemy:Enemy, session=session):
                 print("Your health:", player.health) 
                 print("Enemy's health:", enemy.health)         
                 player.hit_score(2)
+                # player.money(2) <-- gold reward after every hit
         session.commit()
     return player
         
@@ -149,7 +151,7 @@ while True:
             session.commit()
             update_player_stats(player, window)
         else:
-            print("You`r still here..")
+            print("You don't have enough gold to to regenerare health..")
 
     if event == sg.WINDOW_CLOSED or event == "Quit":
         break
