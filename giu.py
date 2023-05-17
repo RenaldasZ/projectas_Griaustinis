@@ -42,7 +42,7 @@ layout1 = [
     and imprisoned in its lair atop a mountain.
     Your quest is to find the dragon and save the prince.""", font=("Gabriola", 18), justification="center")],
     [sg.Text("Thunder Girl", size=(20, 0), font=("Segoe Print", 16))],
-    [sg.Text("Level", key="-level-"), sg.Text(f"Health", key="-health-"), sg.Text(f"Power", key="-power-"), sg.Text(f"Gold", key="-gold-"), sg.Text(f"Score", key="-score-"),
+    [sg.Text(f"Level\n{player.level}", key="-level-"), sg.Text(f"Health\n{player.health}", key="-health-"), sg.Text(f"Power\n{player.power}", key="-power-"), sg.Text(f"Gold\n{player.gold}", key="-gold-"), sg.Text(f"Score\n{player.score}", key="-score-"),
      sg.Button("Start",size=(16,0),border_width=(5), key="-new game-")]
 ]
 
