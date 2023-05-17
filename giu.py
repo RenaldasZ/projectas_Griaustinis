@@ -3,7 +3,7 @@ import PySimpleGUI as sg
 from game_config import Player, Enemy, engine
 from sqlalchemy.orm import sessionmaker
 
-    # Create a session
+# Create a session
 Session = sessionmaker(bind=engine)
 session = Session()
 
