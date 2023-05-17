@@ -19,11 +19,13 @@ pygame.mixer.music.play(loops=-1)
 # Load the sound effect
 sound_effect = pygame.mixer.Sound("attack.mp3")
 sound_effect1 = pygame.mixer.Sound("dragon.mp3")
+sound_effect2 = pygame.mixer.Sound("start.mp3")
+sound_effect3 = pygame.mixer.Sound("flee.mp3")
+
 
 # Set the initial volume (range: 0.0 to 1.0)
 initial_volume = 0.1
 pygame.mixer.music.set_volume(initial_volume)
-
 
 # Retrieve the player and enemy from the database
 player = session.query(Player).filter_by(name='Thunder Girl').first()
@@ -146,7 +148,15 @@ while True:
     elif event =="Mountain":
         # Play the sound effect
         sound_effect1.play()
-
+        
+    elif event =="-new game-":
+        # Play the sound effect
+        sound_effect2.play()
+        
+    elif event =="Flee":
+        # Play the sound effect
+        sound_effect3.play()
+        
 window.close()
  # Stop the background music when the game ends
 pygame.mixer.music.stop()
