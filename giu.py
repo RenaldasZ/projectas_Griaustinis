@@ -115,7 +115,7 @@ while True:
         goblin.health = 70
         ork.health = 90
         dragon.health = 200
-        
+        window["-location-"].update(filename="small_village.png")
     if event == sg.WINDOW_CLOSED or event == "Quit":
         break
     elif event == "Start Game":
