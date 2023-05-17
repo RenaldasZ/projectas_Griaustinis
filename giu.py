@@ -48,8 +48,8 @@ layout1 = [
      sg.Button("Start",size=(16,0),border_width=(5), key="-new game-")]
 ]
 
-layout2 = [[sg.Button("Swamp",size=(16,0), key="Swamp"), sg.Button("Cave",size=(16,0), key="Cave"), sg.Button("Forest",size=(16,0), key="Forest"), sg.Button("Mountain",size=(16,0), key="Mountain"),sg.Button("Village",size=(16,0), key="Village")],
-          [sg.Output(s=(30, 10), key="-output-"), sg.Button("Attack!!!",size=(16,0), button_color=('white', 'firebrick4'),border_width=(5), key="Attack"), sg.Button("Flee",size=(16,0), key="Flee"),sg.Image(default_pic, key="-location-")]
+layout2 = [[sg.Button("Swamp",size=(16,0), key="Swamp"), sg.Button("Cave", size=(16,0), key="Cave"), sg.Button("Forest",size=(16,0), key="Forest"), sg.Button("Mountain",size=(16,0), key="Mountain"),sg.Button("Village",size=(16,0), key="Village")],
+          [sg.Output(s=(30, 10), key="-output-"), sg.Button("Attack!!!", size=(16,0), button_color=('white', 'firebrick4'),border_width=(5), key="Attack"), sg.Button("Flee",size=(16,0), key="Flee"),sg.Image(default_pic, key="-location-")]
 ]
 layout = [
     [sg.Column(layout1, key='-COL1-')],
@@ -59,24 +59,31 @@ layout = [
 window = sg.Window("Griaustinis", layout, size=(1050, 820), element_justification="center")
 
 def attack(player:Player, enemy:Enemy, session=session):
-    while player.health > 0 and enemy.health > 0:
+    if player.health > 0 and enemy.health > 0:
         # Player's turn
         enemy.health -= player.power
         if enemy.health <= 0:
-            print("You defeated the Enemy! Please choose another location")
-            break
-        print("Enemy's health:", enemy.health)         
-        # Enemy's turn
-        player.health -= enemy.power
-        if player.health <= 0:
-            print("Game over. You were defeated by Enemy.")
-            break
-        print("Your health:", player.health)          
-        player.hit_score(2)
-        player.money(1)
+            player.money(enemy.power // 10)
+            print("You defeated the Enemy! Please choose another location")                
+        else:
+            # Enemy's turn
+            player.health -= enemy.power
+            if player.health <= 0:
+                print("Game over. You were defeated by Enemy.")
+            else:
+                print("Your health:", player.health) 
+                print("Enemy's health:", enemy.health)         
+                player.hit_score(2)
         session.commit()
     return player
         
+def update_player_stats(player, window):
+    window["-level-"].update(f"Level\n{player.level}")
+    window["-health-"].update(f"Health\n{player.health}")
+    window["-power-"].update(f"Power\n{player.power}")
+    window["-gold-"].update(f"Gold\n{player.gold}")
+    window["-score-"].update(f"Score\n{player.score}")
+
 location = None
 enemy_location = {
     "Swamp": rat, 
@@ -121,22 +128,28 @@ while True:
         window["-location-"].update(filename=enemy_pics[location])
 
     if event == "Attack":
-        if location:
+        if location and location in enemy_location.keys():
             player = attack(player, enemy_location[location])
-            window["-level-"].update(f"Level\n{player.level}")
-            window["-health-"].update(f"Health\n{player.health}")
-            window["-power-"].update(f"Power\n{player.power}")
-            window["-gold-"].update(f"Gold\n{player.gold}")
-            window["-score-"].update(f"Score\n{player.score}")
+            update_player_stats(player, window)
+
         else:
             print("There are no enemies here. Please choose a location.")
 
     if event == "Village":
-        rat.health = 50
-        goblin.health = 70
-        ork.health = 90
-        dragon.health = 200
-        window["-location-"].update(filename="images/small_village.png")
+        if location != event:
+            if player.gold >= 10:
+                player.gold -= 10
+                player.heal()
+            rat.health = 50
+            goblin.health = 70
+            ork.health = 90
+            dragon.health = 200
+            window["-location-"].update(filename="images/small_village.png")
+            location = event
+            session.commit()
+            update_player_stats(player, window)
+        else:
+            print("You`r still here..")
 
     if event == sg.WINDOW_CLOSED or event == "Quit":
         break
