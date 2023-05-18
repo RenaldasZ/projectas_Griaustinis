@@ -14,15 +14,19 @@ pygame.init()
 pygame.mixer.init()
 
 # Load the background music
-pygame.mixer.music.load("background_music.mp3")
+pygame.mixer.music.load("sounds/background_music.mp3")
 
 # Play the background music on loop
 pygame.mixer.music.play(loops=-1)
 # Load the sound effect
-sound_effect = pygame.mixer.Sound("attack.mp3")
-sound_effect1 = pygame.mixer.Sound("dragon.mp3")
-sound_effect2 = pygame.mixer.Sound("start.mp3")
-sound_effect3 = pygame.mixer.Sound("flee.mp3")
+sound_effect = pygame.mixer.Sound("sounds/attack.mp3")
+sound_effect1 = pygame.mixer.Sound("sounds/dragon.mp3")
+sound_effect2 = pygame.mixer.Sound("sounds/start.mp3")
+sound_effect3 = pygame.mixer.Sound("sounds/rat.mp3")
+sound_effect4 = pygame.mixer.Sound("sounds/goblin.mp3")
+sound_effect5 = pygame.mixer.Sound("sounds/ork.mp3")
+sound_effect6 = pygame.mixer.Sound("sounds/village.mp3")
+sound_effect7 = pygame.mixer.Sound("sounds/inventory.mp3")
 
 
 # Set the initial volume (range: 0.0 to 1.0)
@@ -207,9 +211,23 @@ while True:
         # Play the sound effect
         sound_effect2.play()
         
-    elif event =="Flee":
+    elif event =="Swamp":
         # Play the sound effect
         sound_effect3.play()
+    elif event =="Cave":
+        # Play the sound effect
+        sound_effect4.play()
+    elif event =="Forest":
+        # Play the sound effect
+        sound_effect5.play()
+        
+    elif event =="Village":
+        # Play the sound effect
+        sound_effect6.play()
+        
+    elif event =="-inventory-":
+        # Play the sound effect
+        sound_effect7.play()
         
 window.close()
  # Stop the background music when the game ends
