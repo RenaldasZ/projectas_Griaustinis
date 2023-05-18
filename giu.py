@@ -108,9 +108,9 @@ enemy_pics = {
 
 player.health = 100
 rat.health = 50
-goblin.health = 70
-ork.health = 90
-dragon.health = 200
+goblin.health = 110
+ork.health = 200
+dragon.health = 500
 
 while True:
     event, values = window.read()
@@ -141,9 +141,9 @@ while True:
                 player.gold -= 10
                 player.heal()
             rat.health = 50
-            goblin.health = 70
-            ork.health = 90
-            dragon.health = 200
+            goblin.health = 110
+            ork.health = 200
+            dragon.health = 500
             window["-location-"].update(filename="images/small_village.png")
             location = event
             session.commit()
