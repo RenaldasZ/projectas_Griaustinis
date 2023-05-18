@@ -1,7 +1,15 @@
-from sqlalchemy import Column, Integer, String, create_engine
+from sqlalchemy import Column, Integer, String, create_engine, ForeignKey, Table
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
 
 Base = declarative_base()
+
+# Intermediate table for the many-to-many relationship between Player and InventoryItem
+player_inventory = Table('player_inventory', Base.metadata,
+                         Column('player_id', Integer, ForeignKey('Player.id'), primary_key=True),
+                         Column('inventory_item_id', Integer, ForeignKey('InventoryItem.id'), primary_key=True)
+                         )
+
 
 class Player(Base):
     __tablename__ = 'Player'
@@ -13,18 +21,19 @@ class Player(Base):
     gold = Column(Integer, nullable=False)
     score = Column(Integer, nullable=False)
 
+    inventory = relationship("InventoryItem", secondary=player_inventory, back_populates="players")
 
     def hit_score(self, amount):
         self.score += amount
         if self.score % 10 == 0:
             self.lvl_up()
             self.heal()
-            self.strenght()
+            self.strength()
 
     def heal(self, health=35):
         self.health += health
 
-    def strenght(self):
+    def strength(self):
         self.power += 2
 
     def lvl_up(self):
@@ -32,6 +41,50 @@ class Player(Base):
 
     def money(self, amount):
         self.gold += amount
+        
+
+    def add_health_potion(self, health_potion):     # add health potion
+        self.inventory.append(health_potion)
+
+    def add_power_potion(self, power_potion):       # add power potion
+        self.inventory.append(power_potion)
+
+    def use_hp_potion(self, health_potion):         # use health potion
+        health_potion.use_hp(self)
+
+    def use_pw_potion(self, power_potion):          # use power potion
+        power_potion.use_pw(self)
+
+
+    def potion_health(self, health):
+        self.health += health
+    
+    def potion_power(self, power):
+        self.power += power
+
+
+class InventoryItem(Base):
+    __tablename__ = 'InventoryItem'
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    players = relationship("Player", secondary=player_inventory, back_populates="inventory")
+
+
+class HealthPotion(InventoryItem):
+    def __init__(self):
+        self.name = "Health Potion"
+
+    def use_hp(self, player):
+        player.potion_health(500)
+
+
+class PowerPotion(InventoryItem):
+    def __init__(self):
+        self.name = "Super Power Potion"
+
+    def use_pw(self, player):
+        player.potion_power(500)
+
 
 class Enemy(Base):
     __tablename__ = 'Enemy'
@@ -39,6 +92,7 @@ class Enemy(Base):
     name = Column(String, nullable=False)
     health = Column(Integer, nullable=False)
     power = Column(Integer, nullable=False)
+
 
 # Create the database engine
 engine = create_engine('sqlite:///thunder.db')

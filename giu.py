@@ -1,7 +1,9 @@
 import pygame
 import PySimpleGUI as sg
-from game_config import Player, Enemy, engine
+from game_config import Player, Enemy, InventoryItem, HealthPotion, PowerPotion, engine
 from sqlalchemy.orm import sessionmaker
+
+potion = InventoryItem(name="Health Potion")
 
 # Create a session
 Session = sessionmaker(bind=engine)
@@ -58,13 +60,18 @@ layout = [
 
 window = sg.Window("Griaustinis", layout, size=(1050, 820), element_justification="center")
 
+def shop():
+    pass
+
 def attack(player:Player, enemy:Enemy, session=session):
     if player.health > 0 and enemy.health > 0:
         # Player's turn
         enemy.health -= player.power
         if enemy.health <= 0:
             player.money(enemy.power) # gold reward after kill = enemy power
-            print("You defeated the Enemy! Please choose another location")                
+            # player.add_health_potion(health_potion) # get 1 health potion after kill
+            # player.add_power_potion(power_potion) # get 1 power potion after kill
+            print("You defeated the Enemy! Please choose another location")              
         else:
             # Enemy's turn
             player.health -= enemy.power
@@ -105,12 +112,14 @@ enemy_pics = {
     "Forest": "images/small_orc.png",
     "Mountain": "images/small_dragon.png",
 }
-
+#creating instance
 player.health = 100
 rat.health = 50
-goblin.health = 110
-ork.health = 200
-dragon.health = 500
+goblin.health = 70
+ork.health = 90
+dragon.health = 200
+health_potion = HealthPotion()
+power_potion = PowerPotion()
 
 while True:
     event, values = window.read()
@@ -133,10 +142,12 @@ while True:
             update_player_stats(player, window)
 
         else:
-            print("There are no enemies here. Please choose a location.")
+            print("There are no enemies here. Please choose a different location.")
 
     if event == "Village":
         if location != event:
+            # player.use_hp_potion(health_potion)
+            # player.use_pw_potion(power_potion)
             if player.gold >= 10:
                 player.gold -= 10
                 player.heal()
