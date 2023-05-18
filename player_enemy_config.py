@@ -24,8 +24,8 @@ player.add_power_potion(potion)
 # Add enemy to the Enemy table
 enemy1 = Enemy(name='Rat', health=50, power=10)
 enemy2 = Enemy(name='Goblin', health=110, power=12)
-enemy3 = Enemy(name='Orc', health=90, power=10)
-enemy4 = Enemy(name='Dragon', health=200, power=20)
+enemy3 = Enemy(name='Orc', health=200, power=15)
+enemy4 = Enemy(name='Dragon', health=500, power=25)
 
 session.add_all([player, enemy1, enemy2, enemy3, enemy4])
 

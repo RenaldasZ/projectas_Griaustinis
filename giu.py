@@ -134,9 +134,9 @@ enemy_pics = {
 #creating instance
 player.health = 100
 rat.health = 50
-goblin.health = 70
-ork.health = 90
-dragon.health = 200
+goblin.health = 110
+ork.health = 200
+dragon.health = 500
 # health_potion = HealthPotion()
 # power_potion = PowerPotion()
 
