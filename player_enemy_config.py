@@ -8,13 +8,13 @@ session = Session()
 # Create a player named 'Thunder Girl'
 player = Player(name='Thunder Girl', health=100, level=1, power=10, gold=10, score=0)
 
-# Add the health potion to the player's inventory
-potion = HealthPotion()
-player.add_health_potion(potion)
+# # Add the health potion to the player's inventory
+# potion = HealthPotion()
+# player.add_health_potion(potion)
 
-# Add the  power potion to the player's inventory
-potion = PowerPotion()
-player.add_power_potion(potion)
+# # Add the  power potion to the player's inventory
+# potion = PowerPotion()
+# player.add_power_potion(potion)
 
 # Add items to the InventoryItem table
 # item1 = InventoryItem(name='Health Potion')
