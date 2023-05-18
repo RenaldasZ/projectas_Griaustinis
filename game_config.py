@@ -1,3 +1,5 @@
+
+
 from sqlalchemy import Column, Integer, String, create_engine, ForeignKey, Table
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
@@ -69,21 +71,24 @@ class InventoryItem(Base):
     name = Column(String, nullable=False)
     players = relationship("Player", secondary=player_inventory, back_populates="inventory")
 
+    def use(self, player):
+        if self.name == "Health Potion":
+            player.potion_health(500)
+            print(player.health)
+        if self.name == "Super Power Potion":
+            player.potion_power(500)
+            print(player.power)
+        return player
+
 
 class HealthPotion(InventoryItem):
     def __init__(self):
         self.name = "Health Potion"
 
-    def use_hp(self, player):
-        player.potion_health(500)
-
 
 class PowerPotion(InventoryItem):
     def __init__(self):
         self.name = "Super Power Potion"
-
-    def use_pw(self, player):
-        player.potion_power(500)
 
 
 class Enemy(Base):
