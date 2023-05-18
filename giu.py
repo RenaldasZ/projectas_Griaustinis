@@ -51,7 +51,7 @@ layout1 = [
 ]
 
 layout2 = [[sg.Button("Swamp",size=(16,0), key="Swamp"), sg.Button("Cave", size=(16,0), key="Cave"), sg.Button("Forest",size=(16,0), key="Forest"), sg.Button("Mountain",size=(16,0), key="Mountain"),sg.Button("Village",size=(16,0), key="Village")],
-          [sg.Output(s=(30, 10), key="-output-"), sg.Button("Attack!!!", size=(16,0), button_color=('white', 'firebrick4'),border_width=(5), key="Attack"), sg.Button("Flee",size=(16,0), key="Flee"),sg.Image(default_pic, key="-location-")]
+          [sg.Output(s=(30, 10), key="-output-"), sg.Button("Attack!!!", size=(16,0), button_color=('white', 'firebrick4'),border_width=(5), key="Attack"), sg.Button("Bus inventorius",size=(16,0), key="Inventory"),sg.Image(default_pic, key="-location-")]
 ]
 layout = [
     [sg.Column(layout1, key='-COL1-')],
@@ -135,7 +135,11 @@ while True:
         location = event
         print(location_messages[location])
         window["-location-"].update(filename=enemy_pics[location])
-
+        window["Swamp"].update(disabled=True)
+        window["Cave"].update(disabled=True)
+        window["Forest"].update(disabled=True)
+        window["Mountain"].update(disabled=True)
+        window["Attack"].update(disabled=False)
     if event == "Attack":
         if location and location in enemy_location.keys():
             player = attack(player, enemy_location[location])
@@ -159,6 +163,11 @@ while True:
             location = event
             session.commit()
             update_player_stats(player, window)
+            window["Swamp"].update(disabled=False)
+            window["Cave"].update(disabled=False)
+            window["Forest"].update(disabled=False)
+            window["Mountain"].update(disabled=False)
+            window["Attack"].update(disabled=True)
         else:
             print("You don't have enough gold to to regenerare health..")
 
