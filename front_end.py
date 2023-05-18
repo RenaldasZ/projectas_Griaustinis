@@ -197,7 +197,8 @@ while True:
         break
 
     elif event == '-inventory-':
-        open_inventory(player, window)    
+        open_inventory(player, window)
+        sound_effect7.play()    
     
     elif event =="Attack":
         # Play the sound effect
@@ -225,9 +226,6 @@ while True:
         # Play the sound effect
         sound_effect6.play()
         
-    elif event =="-inventory-":
-        # Play the sound effect
-        sound_effect7.play()
         
 window.close()
  # Stop the background music when the game ends
