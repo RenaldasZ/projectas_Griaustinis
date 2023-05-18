@@ -1,6 +1,6 @@
 import pygame
 import PySimpleGUI as sg
-from game_config import Player, Enemy, InventoryItem, HealthPotion, PowerPotion, engine
+from game_config import Player, Enemy, InventoryItem, HealthPotion, engine
 from sqlalchemy.orm import sessionmaker
 
 potion = InventoryItem(name="Health Potion")
@@ -27,7 +27,6 @@ sound_effect4 = pygame.mixer.Sound("sounds/goblin.mp3")
 sound_effect5 = pygame.mixer.Sound("sounds/ork.mp3")
 sound_effect6 = pygame.mixer.Sound("sounds/village.mp3")
 sound_effect7 = pygame.mixer.Sound("sounds/inventory.mp3")
-
 
 # Set the initial volume (range: 0.0 to 1.0)
 initial_volume = 0.1
@@ -75,7 +74,12 @@ def attack(player:Player, enemy:Enemy, session=session):
             player.money(enemy.power) # gold reward after kill = enemy power
             player.add_health_potion(HealthPotion()) # get 1 health potion after kill
             # player.add_power_potion(power_potion) # get 1 power potion after kill
-            print("You defeated the Enemy! Please choose another location")              
+            print("You defeated the Enemy! Please choose another location")  
+
+            # Check if it's the last enemy dragon
+            if enemy.name == "Dragon":
+                sg.popup("You killed Dragon and saved Rytis Cicinas. Congratulations brave warrior! Now you can continue playing or start again.")  # Print "Win" after the last enemy dragon is killed
+
         else:
             # Enemy's turn
             player.health -= enemy.power
@@ -141,8 +145,6 @@ rat.health = 50
 goblin.health = 110
 ork.health = 200
 dragon.health = 500
-# health_potion = HealthPotion()
-# power_potion = PowerPotion()
 
 while True:
     event, values = window.read()
@@ -215,9 +217,11 @@ while True:
     elif event =="Swamp":
         # Play the sound effect
         sound_effect3.play()
+
     elif event =="Cave":
         # Play the sound effect
         sound_effect4.play()
+
     elif event =="Forest":
         # Play the sound effect
         sound_effect5.play()
@@ -228,6 +232,7 @@ while True:
         
         
 window.close()
+
  # Stop the background music when the game ends
 pygame.mixer.music.stop()
 
