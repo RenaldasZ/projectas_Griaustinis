@@ -51,7 +51,7 @@ layout1 = [
 ]
 
 layout2 = [[sg.Button("Swamp",size=(16,0), key="Swamp"), sg.Button("Cave", size=(16,0), key="Cave"), sg.Button("Forest",size=(16,0), key="Forest"), sg.Button("Mountain",size=(16,0), key="Mountain"),sg.Button("Village",size=(16,0), key="Village")],
-          [sg.Output(s=(30, 10), key="-output-"), sg.Button("Attack!!!", size=(16,0), button_color=('white', 'firebrick4'),border_width=(5), key="Attack"), sg.Button("Flee",size=(16,0), key="Flee"),sg.Image(default_pic, key="-location-")]
+          [sg.Output(s=(30, 10), key="-output-"), sg.Button("Attack!!!", size=(16,0), button_color=('white', 'firebrick4'),border_width=(5), key="Attack"), sg.Button("Inventory",size=(16,0), key="-inventory-"),sg.Image(default_pic, key="-location-")]
 ]
 layout = [
     [sg.Column(layout1, key='-COL1-')],
@@ -69,7 +69,7 @@ def attack(player:Player, enemy:Enemy, session=session):
         enemy.health -= player.power
         if enemy.health <= 0:
             player.money(enemy.power) # gold reward after kill = enemy power
-            # player.add_health_potion(health_potion) # get 1 health potion after kill
+            player.add_health_potion(HealthPotion()) # get 1 health potion after kill
             # player.add_power_potion(power_potion) # get 1 power potion after kill
             print("You defeated the Enemy! Please choose another location")              
         else:
@@ -83,6 +83,25 @@ def attack(player:Player, enemy:Enemy, session=session):
                 player.hit_score(1)        
         session.commit()
     return player
+
+# Function to open the inventory 
+def open_inventory(player: Player, main_window):
+    layout = [[sg.Text('Inventory')]]
+    for item in player.inventory:
+        layout.append([sg.Text(item.name), sg.Button("use", key=item)])
+    layout.append([sg.Button('Close')])
+
+    window = sg.Window('Inventory', layout)
+    while True:
+        event, values = window.read()
+        if isinstance(event, InventoryItem):
+            player = event.use(player)
+            session.commit()
+            update_player_stats(player, main_window)
+
+        if event == sg.WINDOW_CLOSED or event == 'Close':
+            break
+    window.close()
         
 def update_player_stats(player, window):
     window["-level-"].update(f"Level\n{player.level}")
@@ -118,8 +137,8 @@ rat.health = 50
 goblin.health = 70
 ork.health = 90
 dragon.health = 200
-health_potion = HealthPotion()
-power_potion = PowerPotion()
+# health_potion = HealthPotion()
+# power_potion = PowerPotion()
 
 while True:
     event, values = window.read()
@@ -140,7 +159,6 @@ while True:
         if location and location in enemy_location.keys():
             player = attack(player, enemy_location[location])
             update_player_stats(player, window)
-
         else:
             print("There are no enemies here. Please choose a different location.")
 
@@ -164,6 +182,9 @@ while True:
 
     if event == sg.WINDOW_CLOSED or event == "Quit":
         break
+
+    elif event == '-inventory-':
+        open_inventory(player, window)    
     
     elif event =="Attack":
         # Play the sound effect
