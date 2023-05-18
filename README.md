@@ -11,7 +11,6 @@ To install the game, you need to run the game_config.py and player_enemy_config 
 
 The control of the main player in the game is very simple. The game starts in the village, and by selecting a location with the mouse, we encounter enemies. If we want to fight them, we click the "Attack" button. If our strength is not enough, we can return to the village location. At any time, we can access the inventory and purchase or use a health potion.
 
-Please note that the code you provided does not include the implementation of the inventory functionality or the purchasing/use of health potions. If you would like assistance with implementing these features, please provide more details or specific requirements.
 
 # File Descriptions
 
@@ -21,15 +20,15 @@ player_enemy_config.py: This file complements the existing database with predefi
 
 front_end.py: This file is the main part of the game's logic and user interface. It should encompass all game rules, execution of actions, management of enemies and players, event handling, and control of user interface elements such as buttons, images, text fields, and more.
 
-images folder: This folder should contain all the images used in the game. This may include images of the player, enemies, locations, or other image files relevant to the game.
+images folder: This folder contain all the images used in the game. This include images of the player, enemies, locations, or other image files relevant to the game.
 
-sounds folder: This folder should contain the game sounds. It may include background music, sound effects, or other audio files used during gameplay.
+sounds folder: This folder contain the game sounds. It include background music, sound effects, or other audio files used during gameplay.
 
 All these files together form the core structure and functionality of the game. To run the game, you should execute the front_end.py file, which ensures the execution of the game logic and control of the user interface.
 
 # Autors:
-Blenderis85
-EricWebDev
-RenaldasZ
-TapuTap
+Blenderis85,
+EricWebDev,
+RenaldasZ,
+TapuTap.
 
