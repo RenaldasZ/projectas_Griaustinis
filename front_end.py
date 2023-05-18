@@ -1,6 +1,6 @@
 import pygame
 import PySimpleGUI as sg
-from game_config import Player, Enemy, InventoryItem, HealthPotion, engine
+from game_config import Player, Enemy, InventoryItem, HealthPotion, PowerPotion, engine
 from sqlalchemy.orm import sessionmaker
 
 potion = InventoryItem(name="Health Potion")
@@ -72,13 +72,20 @@ def attack(player:Player, enemy:Enemy, session=session):
         enemy.health -= player.power
         if enemy.health <= 0:
             player.money(enemy.power) # gold reward after kill = enemy power
-            player.add_health_potion(HealthPotion()) # get 1 health potion after kill
-            # player.add_power_potion(power_potion) # get 1 power potion after kill
-            print("You defeated the Enemy! Please choose another location")  
+            print("You defeated the Enemy! Please go back to village take a rest and choose another location.")  
 
             # Check if it's the last enemy dragon
             if enemy.name == "Dragon":
-                sg.popup("You killed Dragon and saved Rytis Cicinas. Congratulations brave warrior! Now you can continue playing or start again.")  # Print "Win" after the last enemy dragon is killed
+                # Popup after the last enemy 'Dragon' is killed
+                sg.popup("You killed Dragon and saved Rytis Cicinas. Congratulations brave warrior! Now you can continue playing or start again.") 
+            
+            if enemy.name == "Rat":
+                print("Health potion recieved")
+                player.add_health_potion(HealthPotion()) # get 1 health potion after killing enemy Rat
+
+            if enemy.name == "Orc":
+                print("Power potion recieved")
+                player.add_power_potion(PowerPotion()) # get 1 power potion after killing enemy Orc
 
         else:
             # Enemy's turn

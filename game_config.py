@@ -72,10 +72,10 @@ class InventoryItem(Base):
     def use(self, player):
         if self.name == "Health Potion":
             player.potion_health(50)
-            print(player.health)
+            print("Your health after potion:", player.health)
         if self.name == "Super Power Potion":
             player.potion_power(50)
-            print(player.power)
+            print("Your power after potion:",player.power)
         return player
 
 
