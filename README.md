@@ -26,6 +26,11 @@ sounds folder: This folder contain the game sounds. It include background music,
 
 All these files together form the core structure and functionality of the game. To run the game, you should execute the front_end.py file, which ensures the execution of the game logic and control of the user interface.
 
+#Features
+add tests for functions
+1. attack
+2. inventory
+
 # Autors:
 Blenderis85,
 EricWebDev,
