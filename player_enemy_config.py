@@ -1,5 +1,5 @@
 from sqlalchemy.orm import sessionmaker
-from game_config import Player, Enemy, InventoryItem, engine
+from game_config import Player, Enemy, InventoryItem, engine, HealthPotion, PowerPotion
 
 # Create a session
 Session = sessionmaker(bind=engine)
@@ -16,9 +16,14 @@ player = Player(name='Thunder Girl', health=100, level=1, power=10, gold=10, sco
 # potion = PowerPotion()
 # player.add_power_potion(potion)
 
-## Add items to the InventoryItem table
+# Add the  power potion to the player's inventory
+# sword = Sword()
+# player.add_power_potion(sword)
+
+# # Add items to the InventoryItem table
 # health_potion = InventoryItem(name='Health Potion', quantity=0)
 # power_potion = InventoryItem(name='Power Potion', quantity=0)
+# sword = InventoryItem(name='Iron Sword', quantity=0)
 
 # Add enemy to the Enemy table
 enemy1 = Enemy(name='Rat', health=50, power=10)

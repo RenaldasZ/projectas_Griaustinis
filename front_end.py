@@ -118,14 +118,14 @@ dragon.health = 500
 while True:
     event, values = window.read()
 
+    if event == sg.WINDOW_CLOSED or event == "Close":
+        session.commit()
+        break
+
     if event == "-start game-":
         window["-COL2-"].update(visible=True)
         print("Welcome to your village, where your journey begins. Please choose where you would like to continue your journey.")
         pygame.mixer.Sound(location_sounds["-start game-"]).play()
-        
-    if event == sg.WINDOW_CLOSED or event == "Close":
-        session.commit()
-        break
 
     if event in enemy_location.keys():
         location = event

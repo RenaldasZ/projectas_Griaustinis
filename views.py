@@ -1,4 +1,4 @@
-from game_config import Player, Enemy, HealthPotion, PowerPotion, InventoryItem, sg, engine
+from game_config import Player, Enemy, InventoryItem, sg, engine
 from sqlalchemy.orm import sessionmaker
 
 # Create a session
@@ -20,7 +20,8 @@ def attack(player:Player, enemy:Enemy, session=session):
             player.money(enemy.power) # gold reward after kill = enemy power
             print("You defeated the Enemy! Please go back to village take a rest and choose another location.") 
             if enemy.name == "Rat":
-                enemy.drop_potion(player, "Health Potion", 1)  # Drops 3 Health Potions
+                enemy.drop_potion(player, "Health Potion", 2)  # Drops 1 Health Potions
+                enemy.drop_sword(player, "Iron Sword", 1)  # Drops Sword
                 sg.popup("You defeated the Rat and recived Health potion.")
             if enemy.name == "Goblin":
                 sg.popup("You defeated the Goblin")
@@ -28,7 +29,7 @@ def attack(player:Player, enemy:Enemy, session=session):
                 sg.popup("You defeated the Orc and recived Power potion!")
                 enemy.drop_potion(player, "Power Potion", 1)  # Drops 2 Power Potions
             if enemy.name == "Dragon":
-                sg.popup("You killed Dragon and saved Rytis Cicinas. Congratulations brave warrior! Now you can continue playing or start again.")         
+                sg.popup("You killed Dragon and saved Rytis Cicinas. Congratulations brave warrior! Now you can continue playing or start again.")       
         else:
             # Enemy's turn
             player.health -= enemy.power
@@ -43,7 +44,7 @@ def attack(player:Player, enemy:Enemy, session=session):
 def open_inventory(player: Player, main_window):
     layout = [[sg.Text('Inventory')]]
     for item in player.inventory:
-        layout.append([sg.Text(item.name), sg.Button("use", key=item)])
+        layout.append([sg.Text(item.name), sg.Text(item.quantity), sg.Button("use", key=item)])
     layout.append([sg.Button('Close')])
 
     window = sg.Window('Inventory', layout, size=(400, 300))
@@ -51,14 +52,12 @@ def open_inventory(player: Player, main_window):
     while True:
         event, values = window.read()
         if isinstance(event, InventoryItem):
-            # Assuming 'player' is an instance of the 'Player' class
-            item_to_use = player.inventory[0]  # Assuming the item to use is at index 0 of the player's inventory
-            player = item_to_use.use(player)  # Use the item and update the player's attributes
-            # player = event.use(player)
+            player = event.use(player)
             session.commit()
             update_player_stats(player, main_window)
             window.close()  # Close the current window
             open_inventory(player, main_window)  # Open a new inventory window
+
 
         if event == sg.WINDOW_CLOSED or event == 'Close':
             break
